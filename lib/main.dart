@@ -17,9 +17,21 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title : Text('Despesas Pessoais'),
       ),
-      body : Center(
-        child: Text('Versão inicial'),
+      body : Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children : <Widget>[
+          Container(
+            child: Card(
+              color : Colors.blue,
+              child : Text('Gráfico'),
+            ),
+          ),
+          Card(
+            child: Text('Lista de Transações'),
+          )
+        ]
       )
-      );
+    );
   }
 }
