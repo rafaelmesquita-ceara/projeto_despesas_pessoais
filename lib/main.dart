@@ -10,7 +10,13 @@ main() => runApp(ExpensesApp());
 class ExpensesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp( home : MyHomePage() );
+    return MaterialApp( 
+      home : MyHomePage(), 
+      theme: ThemeData(
+        primarySwatch: Colors.green,
+        accentColor: Colors.amber,
+      ),
+    );
   }
 }
 
@@ -79,7 +85,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children : <Widget>[
             Container(
               child: Card(
-                color : Colors.blue,
+                color : Theme.of(context).primaryColor,
                 child : Text('Gráfico'),
                 elevation: 5,
               ),
