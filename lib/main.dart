@@ -13,7 +13,7 @@ class ExpensesApp extends StatelessWidget {
     return MaterialApp( 
       home : MyHomePage(), 
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.purple,
         accentColor: Colors.amber,
         fontFamily: 'Quicksand',
         textTheme: ThemeData.light().textTheme.copyWith(
@@ -60,19 +60,19 @@ class _MyHomePageState extends State<MyHomePage> {
       Navigator.of(context).pop();
   }
 
-  final _transactions = [
-      Transaction(
-        id : 't1',
-        title : 'Novo Tênis de Corrida',
-        value : 310.76,
-        date : DateTime.now(),
-      ),
-      Transaction(
-        id : 't2',
-        title : 'Conta de Luz',
-        value : 100.23,
-        date : DateTime.now(),
-      ),
+  final List<Transaction> _transactions = [
+      // Transaction(
+      //   id : 't1',
+      //   title : 'Novo Tênis de Corrida',
+      //   value : 310.76,
+      //   date : DateTime.now(),
+      // ),
+      // Transaction(
+      //   id : 't2',
+      //   title : 'Conta de Luz',
+      //   value : 100.23,
+      //   date : DateTime.now(),
+      // ),
     ];
 
   _openTransactionFormModal(BuildContext context) {
