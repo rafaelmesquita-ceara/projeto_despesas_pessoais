@@ -18,11 +18,11 @@ class _TransactionFormState extends State<TransactionForm> {
   _submitForm() {
     final title = _titleController.text;
     final value = double.tryParse(_valueController.text) ?? 0.0;
-    widget.onSubmit(title, value, _selectedDate);
 
     if (title.isEmpty || value <= 0 || _selectedDate == null) {
       return;
     }
+    widget.onSubmit(title, value, _selectedDate);
   }
 
   _showDatePicker() {
