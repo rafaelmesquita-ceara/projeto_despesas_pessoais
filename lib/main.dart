@@ -11,6 +11,7 @@ class ExpensesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: MyHomePage(),
       theme: ThemeData(
         primarySwatch: Colors.purple,
@@ -129,12 +130,12 @@ class _MyHomePageState extends State<MyHomePage> {
               //   ),
               if (_showChart || !isLandscape)
                 Container(
-                  height: availableHeight * (isLandscape ? 0.7 : 0.3),
+                  height: availableHeight * (isLandscape ? 0.8 : 0.3),
                   child: Chart(_recentTransactions),
                 ),
               if (!_showChart || isLandscape)
                 Container(
-                  height: availableHeight * 0.70,
+                  height: availableHeight * (isLandscape ? 1 : 0.70),
                   child: TransactionList(_transactions, _removeTransaction),
                 ),
             ]),
