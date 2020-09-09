@@ -5,82 +5,69 @@ import 'package:projeto_despesas_pessoais/components/transaction_list.dart';
 import 'package:projeto_despesas_pessoais/models/transaction.dart';
 import 'dart:math';
 
-
 main() => runApp(ExpensesApp());
 
 class ExpensesApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp( 
-      home : MyHomePage(), 
+    return MaterialApp(
+      home: MyHomePage(),
       theme: ThemeData(
         primarySwatch: Colors.purple,
         accentColor: Colors.amber,
         fontFamily: 'Quicksand',
         textTheme: ThemeData.light().textTheme.copyWith(
-          title : TextStyle(
-              fontFamily: 'OpenSans',
-              fontSize : 18,
-              fontWeight: FontWeight.w700
+              title: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700),
+              button:
+                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
             ),
-          button: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold
-          ),
-        ),
         appBarTheme: AppBarTheme(
-          textTheme: ThemeData.light().textTheme.copyWith(
-            title : TextStyle(
-              fontFamily: 'OpenSans',
-              fontSize : 20,
-              fontWeight: FontWeight.w700
-            )
-          )
-        ),
+            textTheme: ThemeData.light().textTheme.copyWith(
+                title: TextStyle(
+                    fontFamily: 'OpenSans',
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700))),
       ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   _addTransaction(String title, double value, DateTime date) {
     final newTransaction = Transaction(
-      id: Random().nextDouble().toString(), 
-      title: title, 
-      value: value, 
-      date: date
-      );
+        id: Random().nextDouble().toString(),
+        title: title,
+        value: value,
+        date: date);
 
-      setState(() {
-        _transactions.add(newTransaction);
-      });
+    setState(() {
+      _transactions.add(newTransaction);
+    });
 
-      Navigator.of(context).pop();
+    Navigator.of(context).pop();
   }
 
-  _removeTransaction(String id){
+  _removeTransaction(String id) {
     setState(() {
       _transactions.removeWhere((tr) => tr.id == id);
     });
   }
 
-
   final List<Transaction> _transactions = [];
 
-    List<Transaction> get _recentTransactions {
-      return _transactions.where((tr) {
-        return tr.date.isAfter(DateTime.now().subtract(
-          Duration(days: 7)
-        ));
-      }).toList();
-    }
+  List<Transaction> get _recentTransactions {
+    return _transactions.where((tr) {
+      return tr.date.isAfter(DateTime.now().subtract(Duration(days: 7)));
+    }).toList();
+  }
 
   _openTransactionFormModal(BuildContext context) {
     showModalBottomSheet(
@@ -93,24 +80,34 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title : Text('Despesas Pessoais'),
+    final appBar = AppBar(
+        title: Text('Despesas Pessoais'),
         actions: [
           IconButton(
             icon: Icon(Icons.add),
             onPressed: () => _openTransactionFormModal(context),
           )
         ],
-      ),
-      body : SingleChildScrollView(
-          child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children : <Widget>[
-            Chart(_recentTransactions),
-            TransactionList(_transactions, _removeTransaction),
-          ]
-        ),
+      );
+
+    final availableHeight = MediaQuery.of(context).size.height 
+    - appBar.preferredSize.height - MediaQuery.of(context).padding.top;
+
+    return Scaffold(
+      appBar: appBar,
+      body: SingleChildScrollView(
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Container(
+                height:  availableHeight * 0.3,
+                child: Chart(_recentTransactions),
+              ),
+              Container(
+                height: availableHeight * 0.7,
+                child: TransactionList(_transactions, _removeTransaction),
+              ),
+            ]),
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
